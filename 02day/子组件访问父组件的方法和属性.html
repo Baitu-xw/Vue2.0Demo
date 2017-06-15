@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>  
+    <head>
+        <title>子组件访问父组件的方法和属性</title>
+    </head>
+    <body>
+        <div id="app">
+            <!--在子组件中访问父组件的属性-->
+            <!--parent是在子组件中声明的属性，parentMessage是父组件中的属性名称，v-bind:parent="parentMessage"将父组件的属性与子组件属性进行绑定-->
+            <child-component 
+            v-bind:parent="parentMessage"
+            v-bind:parent-data="dataList"
+            v-on:child-method="success"
+            >
+                
+            </child-component>
+        </div>
+        <template id="child-temp">
+            <div>
+                <span>{{parent}}</span>
+                <button @click="childSuccess">Success</button>
+                <div>
+                    <ul>
+                        <li v-for="parentdata in parentData">{{parentdata.name}}</li>
+                    </ul>
+                </div>
+            </div>
+            
+        </template>
+    </body>
+    <script src="../js/vue.js"></script>
+    <script>
+        //全局组件注册
+        Vue.component("child-component",{
+            template:'#child-temp',
+            props:["parent","parentData"],
+            methods:{
+                childSuccess:function(){
+                    //alert("child123");
+                    this.$emit("child-method");
+                }
+            }
+        })
+
+        //父级，最高级的
+        new Vue({
+            el:'#app',
+            data:{
+                parentMessage:"hello world",
+                dataList:[
+                    {"name":"testOne"},
+                    {"name":"testTwo"},
+                    {"name":"testThree"}
+                ]
+            },
+            methods:{
+                success:function(){
+                    alert("success");
+                }
+            }
+
+        })
+    </script>
+</html>

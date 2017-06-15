@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>  
+    <head>
+        <title>Vue属性和方法</title>
+    </head>
+    <body>
+        <div id="app">
+            <!--在父组件自己本身中访问-->
+            <div>{{parentMessage}}</div>
+            <input type="text" v-model="parentMessage">
+            <button @click="success" >Success</button>
+            <div>
+                <ul>
+                    <li v-for="person in personList">{{person.name}}</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+    <script src="../js/vue.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                parentMessage:"hello world",
+                personList:[
+                    {"name":"testOne"},
+                    {"name":"testTwo"},
+                    {"name":"testThree"}
+                ]
+            },
+            methods:{
+                success:function(){
+                    alert("success");
+                }
+            }
+        })
+    </script>
+</html>
