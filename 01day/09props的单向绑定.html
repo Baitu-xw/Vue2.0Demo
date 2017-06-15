@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>props的单向绑定</title>
+    </head>
+    <body>
+        <div id="app">
+            <!--第一步：在vue的实例中声明组件-->
+            <demo-component v-bind:my-name="name" v-bind:my-age="age">
+
+            </demo-component>
+        </div>
+        <!--第二步：创建模板供组件调用-->
+        <template id="demo-temp"> 
+            <div>
+                <ul>
+                    <li>姓名：{{myName}}</li>
+                    <li>年龄：{{myAge}}</li>
+                    <li>输入年龄：<input type="text" v-model="myAge"></li>
+                </ul>
+            </div>
+        </template>
+    </body>
+    <script src="../js/vue.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                name:"vue",
+                age:25
+            },
+            components:{
+                'demo-component':{
+                    template:"#demo-temp",
+                    props:["myName","myAge"]
+                }
+            }
+        })
+    </script>
+</html>

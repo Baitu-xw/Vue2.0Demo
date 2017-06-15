@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>使用script标签和template标签Demo</title>
+    </head>
+    <body>
+        <div id="app">
+            <!--第一步：声明组件标签-->
+            <demo-component>
+
+            </demo-component>
+
+            <script1-component>
+
+            </script1-component>
+        </div>
+        <!--第二步：声明模板标签-->
+        <template id="demo-temp">
+            <div>hello world</div>
+        </template>
+        <script type="text/x-template" id="demo-script">
+            <div>hello world2</div>
+        </script>
+    </body>
+    <script src="../js/vue.js"></script>
+    <script>
+        // 第三步：注册模板
+        Vue.component("demo-component",{
+            template:'#demo-temp'
+        });
+
+        Vue.component("script1-component",{
+            template:'#demo-script'
+        })
+        // 第四步：初始化Vue实例
+        new Vue({
+            el:'#app',
+
+        })
+    </script>
+</html>

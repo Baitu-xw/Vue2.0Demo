@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vue语法糖Demo</title>
+    </head>
+    <body>
+        <div id="app">
+            <!--第一步：-->
+            <demo-component></demo-component>
+        </div>
+    </body>
+    <script src="../js/vue.js"></script>
+    <script>
+        // 第二步：
+        Vue.component("demo-component",{
+            template:'<div>hello world</div>'
+        });
+
+        // 第三步：
+        new Vue({
+            el:"#app"
+        })
+    </script>
+</html>

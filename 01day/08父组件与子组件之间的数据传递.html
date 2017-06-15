@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>父组件与子组件之间的数据传递Demo</title>
+</head>
+
+<body>
+    <div id="app">
+        <!--第一步：-->
+        <demo-component v-bind:my-name="name" v-bind:my-age="age">
+
+        </demo-component>
+    </div>
+    <!--第二步：-->
+    <template id="demo-temp">
+        <div>来自父组件的数据
+            <ul>
+                <li>姓名：{{myName}}</li>
+                <li>年龄：{{myAge}}</li>
+            </ul>
+        </div>
+    </template>
+</body>
+<script src="../js/vue.js"></script>
+<script>
+    // 第三步：
+    // Vue.component("demo-component", {
+    //     template: '#demo-temp',
+    //     props: ["myName", "myAge"]
+    // })
+
+    //    第四步：
+    new Vue({
+        el: '#app',
+        data: {
+            name: 'longen',
+            age: 30
+        },
+        //局部注册注意的
+        components: {
+            'demo-component': {
+                template: '#demo-temp',
+                props: ["myName", "myAge"]
+            }
+        }
+    })
+
+</script>
+
+</html>

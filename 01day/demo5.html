@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Vue2.0 Demo2</title>
+    </head>
+    <body>
+        <div id="app">
+            <!--第一步：在vue的实例中声明组件-->
+            <demo-component>
+
+            </demo-component>
+        </div>
+        <!--第二步：创建模板供组件调用-->
+        <template id="demo-temp"> 
+            <div>hello world</div>
+        </template>
+    </body>
+    <script src="../js/vue.js"></script>
+    <script>
+        // 第三步：注册组件
+        Vue.component("demo-component",{
+            template:"#demo-temp",
+        });
+
+        // 第四步：初始化vue实例
+        new Vue({
+            el:"#app",
+        })
+    </script>
+</html>

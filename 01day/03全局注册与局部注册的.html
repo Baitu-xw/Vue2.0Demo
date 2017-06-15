@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>全局注册与局部注册的Demo</title>
+    </head>
+    <body>
+        <div id="app1">
+            <!--第一步：-->
+            <demo-component1></demo-component1>
+        </div>
+
+        <div id="app2">
+            <!--第一步-->
+            <demp-component2></demp-cpmponent2>
+        </div>
+    </body>
+    <script src="../js/vue.js"></script>
+    <script>
+        // 第二步：组件构造器
+        var demoComponent1 = Vue.extend({
+            template:'<div>hello world</div>'
+        });
+        // 第三步：全局注册组件方式
+         Vue.component("demp-component2",demoComponent1);
+
+        // 第四步：初始化组件
+        new Vue({
+            el:"#app1",
+            //局部组件注册的方式
+            components:{
+                'demo-component1':demoComponent1
+            }
+        });
+
+        new Vue({
+            el:"#app2",
+
+        })
+    </script>
+</html>

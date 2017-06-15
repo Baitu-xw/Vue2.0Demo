@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html> 
+    <head>
+        <title>Vue2.0 入门Demo</title>
+    </head>
+    <body>
+        <div id="app">
+            <!--第一步：在vue实例中声明组件-->
+            <demo-component>
+
+            </demo-component>
+        </div>
+    </body>
+    <script src="../js/vue.js"></script>
+    <script>
+        // 第二步：创建一个组件构造器（Vue.extend()是Vue构造器的扩展，调用Vue.extend()创建的是一个组件构造器）
+        var demoComponent = Vue.extend({
+            template:'<div>hello word</div>'
+        });
+
+        // 第三步：注册组件，并指定组件的标签为<component1>
+        Vue.component("demo-component",demoComponent);
+
+        // 第四步：实例化组件(组件要挂载到某个Vue的实例下，否则不生效)
+        new Vue({
+            el:"#app",
+
+        })
+    </script>
+</html>

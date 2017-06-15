@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <head>
+      <title>演示Vue</title>
+    </head>
+    <div id="container1">
+      <component1></component1>
+    </div>
+
+    <div id="container2">
+      <component2></component2>
+      <component3></component3>
+    </div>
+  </body>
+  <script src="../js/vue.js"></script>
+  <script type="text/javascript">
+    // 全局注册，my-component1是标签名称
+    Vue.component('component1',{
+      template: '<div>This is the first component!</div>'
+    })
+    var vm1 = new Vue({
+      el: '#container1'
+    })
+    
+    // 实例化 局部注册
+    var vm1 = new Vue({
+      el: '#container2',
+      components: {
+        // 局部注册， component2 是标签名称
+        'component2': {
+          template: '<div>component2</div>'
+        },
+        // 局部注册，component3 是标签名称
+        'component3': {
+          template: '<div>component3</div>'
+        }
+      }
+    });
+  </script>
+</html>
