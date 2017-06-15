@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Vue的生命周期</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{count}}</div>
+        <input type='text' v-model='count' />
+    </div>
+</body>
+<script src="../js/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            count: 1
+        },
+        //在实例初始化之后， 数据观测 和 event/watcher 事件配置之前被调用
+        beforeCreate: function () {
+            console.log('beforeCreate', this.count);
+        },
+        //实例已经创建完成之后被调用。实例已完成如： 数据观测，属性和方法的计算，watch/event事件回调
+        created: function () {
+            console.log("created", this.count);
+        },
+        // 在挂载开始之前被调用， 该函数在服务器端渲染期间不会被调用。
+        beforeMount: function () {
+            console.log("beforeMount", this.count);
+        },
+        // el被新创建的 vm.$el替换，并挂载到实例上去之后调用该函数，在该函数内可以获取元素。
+        mounted: function () {
+            console.log("mounted", this.count);
+        },
+        // 数据更新时调用，发生在虚拟Dom重新渲染之前。该函数在服务器端渲染期间不会被调用。
+        beforeUpdate: function () {
+            console.log('beforeUpdate', this.count);
+        },
+        // 由于数据更改导致虚拟DOM重新被渲染会调用。在被渲染后调用该函数。可以或许新的dom元素。该函数在服务器端渲染期间不会被调用。
+        updated: function () {
+            console.log('updated', this.count);
+        },
+        beforeDestroy: function () {
+            console.log('销毁前.....');
+        },
+        destroyed: function () {
+            console.log('已销毁.....');
+        }
+
+    });
+     //在DOM更新循环结束之后执行的延迟回调函数，在修改数据之后立即使用这个方法，获取更新后的DOM元素
+     Vue.nextTick(function () {
+      // DOM 更新了
+      console.log(1111);  // 打印出 1111
+    })
+
+</script>
+
+</html>

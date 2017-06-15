@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Vue的混合对象Demo</title>
+</head>
+
+<body>
+    <div id="app">
+        <mixin-component>
+
+        </mixin-component>
+    </div>
+    <template id="mixin-temp">
+        <div>
+            <div>hello world</div>
+            <ul>
+                <li @click="hello">hello</li>
+                <li @click="say">say</li>
+                <li @click="success">success</li>
+            </ul>
+        </div>
+    </template>
+</body>
+<script src="../js/vue.js"></script>
+<script>
+//  当实例化对象本身和混合对象有相同的函数名的时候，会先调用自身的函数，如果自身的函数不存在，才会
+// 寻找混合对象的函数名
+    var vueMixin = {
+        template: '#mixin-temp',
+        methods: {
+            hello: function () {
+                alert("hello来自混合对象中的方法");
+            },
+            say: function () {
+                alert("I am baitu 来自混合对象中的方法");
+            }
+        }
+    };
+
+
+    Vue.component("mixin-component", {
+        mixins: [vueMixin],
+        methods: {
+            success: function () {
+                alert("此方法不是混合对象中的方法")
+            },
+            say: function () {
+                alert("I am baitu 不是来自混合对象")
+            }
+        }
+    });
+
+    var Vm = new Vue({
+        el: '#app'
+    })
+</script>
+
+</html>

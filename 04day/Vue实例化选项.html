@@ -1,0 +1,74 @@
+<!DOCTYPE >
+<html>
+
+<head>
+    <title>Vue实例化选项Demo</title>
+</head>
+
+<body>
+    <div id="app">
+
+    </div>
+</body>
+<script src="../js/vue.js"></script>
+<script>
+    var data = {
+        count: 1,
+        message: "hello",
+        dateArray: [],
+        timeArray:[]
+    };
+    var vm = new Vue({
+        //挂载元素
+        el: '#app',
+        //Vue实例的数据都保存在data对象中，Vue将会递归将data的属性转换为getter/setter, 让//data数据能够响应变化
+        data: data,
+        //该属性可以理解为计算属性，getter 和 setter的this上下文自动的绑定vue的实例
+        //计算属性是基于它们的依赖进行缓存的
+        //计算属性只有在它的相关依赖发生改变时才会重新求值。这就意味着只要 message 还没有发生改//变，多次访问 reversedMessage 计算属性会立即返回之前的计算结果，而不必再次执行函数。
+        //调用属性 只能 vm.reversedMessage, 因为不是调用方法，后面不能加小括号；且后面的//function不要使用箭头函数代替，因为this一般都指向vue的实例。
+        computed: {
+            reversedMessage: function () {
+                return this.message.split('').reverse().join('');
+            },
+            getNowTime: function () {
+                var date = new Date();
+                //获取年份
+                //var year = date.getFullYear();
+                this.dateArray.push(date.getFullYear());
+                //获取月份
+                //var month = date.getMonth()+1;
+                this.dateArray.push(date.getMonth()+1);
+                //获取日
+                //var day = date.getDate();
+                this.dateArray.push(date.getDate());
+                //获取小时
+                //var hour = date.getHours();
+                this.timeArray.push(date.getHours());
+                //获取分钟
+                //var minute = date.getMinutes();
+                this.timeArray.push(date.getMinutes());
+                //获取秒
+                //var second = date.getSeconds();
+                this.timeArray.push(date.getSeconds());
+                return this.dateArray.join('-')+" "+this.timeArray.join(":");
+            }
+        },
+        methods: {
+            
+        },
+        watch:{
+            count:function(newValue,oldValue){
+            console.log(oldValue);
+            console.log(newValue);
+        }
+        }
+    })
+    console.log(vm);
+    console.log(vm.a === data.a);
+    console.log(vm.$data);
+    console.log(vm.reversedMessage);
+    console.log(vm.getNowTime);
+</script>
+
+</html>
