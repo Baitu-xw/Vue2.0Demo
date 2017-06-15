@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>使用Vue Router 实现tab切换</title>
+    <style>
+        /*消除li的小圆点*/
+        body li{
+            list-style: none;
+        }
+        /*消除ul的固定左边距*/
+        body ul{
+            margin:0px;
+            padding: 0px;
+        }
+        .navbar {
+            display: -webkit-flex;
+            display: flex;
+            width: 100%;
+            background-color: lightgrey;
+        }
+        
+        .navbar div {
+            border: solid 2px #ddd;
+            background-color: cornflowerblue;
+            width: 25%;
+            /*height: 10px;*/
+            padding: 10px;
+        }
+        
+        .container {
+            border: 1px solid #ddd;
+        }
+        .container ul{
+            margin-left: 0px;
+        }
+        .container li{
+            border: 1px solid #ddd;
+            padding:5px;
+            margin:2px;
+        }
+        .container li span{
+            font-size: 5px;
+
+        }
+       
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!--第一步：声明标签-->
+        <div class="navbar">
+            <div>
+                <router-link to="/index">首页</router-link>
+            </div>
+            <div>
+                <router-link to="/contacts">通讯录</router-link>
+            </div>
+            <div>
+                <router-link to="/discover">发现</router-link>
+            </div>
+            <div>
+                <router-link to="/aboutme">我的</router-link>
+            </div>
+        </div>
+        <!--第二步：声明内容显示标签-->
+        <div class="container">
+            <router-view></router-view>
+        </div>
+    </div>
+    <template id="index">
+        <div class="indexContainer">
+            <ul>
+                <li v-for="item in listData">{{item.name}}</br>
+                    <span>{{item.gender}}</span>
+                </li>
+            </ul>
+        </div>
+    </template>
+
+    <template id="contacts">
+        <div >
+            <ul>
+                <li v-for="item in contactData">{{item.name}}</li>
+            </ul>
+        </div>
+    </template>
+
+    <template id="discover">
+        <div>这是发现页面</div>
+    </template>
+
+    <template id="aboutme">
+        <div>这是我的相关页面</div>
+    </template>
+</body>
+<script src="../js/vue.js"></script>
+<script src="../js/vue-router.js"></script>
+<script>
+    // 第三步：定义路由组件
+    const Index = {
+        template: '#index',
+        data() {
+            return this.indexList();
+        },
+        computed: {
+
+        },
+
+        methods: {
+            //获取列表
+            indexList: function () {
+                var list = [];
+                for (i = 0; i < 10; i++) {
+                    var personItem = {
+                        name: 'test' + i,
+                        gender: '男'
+                    };
+                    list.push(personItem);
+                }
+                return {
+                    listData: list
+                };
+            }
+        }
+    };
+    const Contacts = {
+        template: '#contacts',
+        data(){
+            return Contacts.methods.contactsList();
+        },
+        methods:{
+            contactsList:function(){
+                var list = [];
+                for(i=0;i<10;i++){
+                    var contactItem = {
+                        name:'contact'+i,
+                    };
+                    list.push(contactItem);
+                }
+                return {
+                    contactData:list
+                }
+            }
+        }
+    };
+    const Discover = {
+        template: '#discover'
+    };
+    const Aboutme = {
+        template: '#aboutme'
+    };
+    //第四步：定义路由
+    //每个路由应该映射一个组件，其中“component” 可以是通过vue.extend()创建的组件构造器，或者，只是一个组件配置对象
+    const routerpaths = [
+        { path: '/index', component: Index },
+        { path: '/contacts', component: Contacts },
+        { path: '/discover', component: Discover },
+        { path: '/aboutme', component: Aboutme }
+    ];
+    //第五步：创建router实例，然后传routers配置，你还可以传别的配置参数，不过现这么简单
+    //此处router实例命名必须为router
+    const router = new VueRouter({
+        routes: routerpaths
+    });
+    const app = new Vue({
+        router,
+        el: '#app',
+        data: {
+            href: "123"
+        }
+    }).$mount("#app");
+
+</script>
+
+</html>

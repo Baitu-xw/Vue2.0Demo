@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>  
+    <head>
+        <title>vue路由</title>
+        <style>
+            .routerDiv {
+                height: 50px;
+                margin: 10px;
+                border: 1px solid #ddd;
+            }
+            .routerDiv ul li{
+                list-style: none;
+                float:left;
+                margin-left:10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <h1>Hello App!</h1>
+            <div class="routerDiv">
+                <ul>
+                    <li><router-link to="/foo">Go to Foo</router-link></li>
+                    <li><router-link to="/bar">Go to Bar</router-link></li>
+                </ul>
+            </div>
+            
+            
+            <router-view></router-view>
+        </div>
+    </body>
+    <script src="../js/vue.js"></script>
+    <script src="../js/vue-router.js"></script>
+    <script>
+        // 第一步：定义路由组件
+        const Foo = {template:'<div>this is Foo</div>'};
+        const Bar = {template:'<div>this is Bar</div>'};
+        // 第二步：定义路由
+        // 每个路由应该映射一个组件，其中“component” 可以是通过vue.extend()创建的组件构造器，或者，只是一个组件配置对象
+        const routers = [
+            {path:'/foo',component:Foo},
+            {path:'/bar',component:Bar}
+        ];
+        // 第三步：创建router实例，然后传routers配置，你还可以传别的配置参数，不过现这么简单
+        const router = new VueRouter({
+            routes:routers
+        });
+
+        //第四步创建和挂载根实例
+        const app = new Vue({
+            router
+        }).$mount('#app');
+
+    </script>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Vue 路由传参Demo</title>
+</head>
+
+<body>
+    <div id="app">
+        <!--第一步：定义路由的标签-->
+        <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+        <router-link to="/user/foo">foo</router-link>
+        <router-link to="/user/bar">bar</router-link>
+        <!-- 路由出口 -->
+        <!-- 路由匹配到的组件将渲染在这里 -->
+        <router-view></router-view>
+    </div>
+</body>
+<script src="../js/vue.js"></script>
+<script src="../js/vue-router.js"></script>
+<script>
+    const usercomponent = {
+        template: '<div>User {{$route.params.id}}</div>'
+    };
+    const routerpath = [
+        { path: '/user/:id' ,component:usercomponent}
+    ];
+    const router = new VueRouter({
+            routes:routerpath
+        });
+    const app = new Vue({
+        router
+        }).$mount("#app");
+</script>
+
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv=X-UA-Compatible content="IE=edge">
+    <meta name=format-detection content="telephone=no">
+    <meta name=viewport content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name=apple-mobile-web-app-capable content=yes>
+    <title>vue过渡效果练习</title>
+    <style>
+        .btn {
+            /*确定位置*/
+            position: fixed;
+            bottom: 50px;
+            right: 10px;
+            z-index: 10;
+            /*确定button的大小，大小确定后就可以将其变为圆角*/
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            /*文字 */
+            font-size: 18px;
+            color: #fff;
+            background: blue;
+            /*将其显示为圆角*/
+            border-radius: 50%;
+            /*将多余的边框去掉*/
+            border: none;
+            outline: none;
+        }
+        
+        .menu {
+            position: fixed;
+            bottom: 50px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            transition: all .7s ease-in;
+        }
+        
+        .inner {
+            /*位置*/
+            display: inline-block;
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 50%;
+            background: red;
+            text-align: center;
+            color: #fff;
+            transition: all .4s;
+        }
+        
+        .inner-1 {
+            top: -50px;
+            left: 10px;
+        }
+        
+        .inner-2 {
+            top: -30px;
+            left: -30px;
+        }
+        
+        .inner-3 {
+            top: 10px;
+            left: -50px;
+        }
+        
+        .move-enter-active .inner {
+            transform: translate3d(0, 0, 0);
+            transition-timing-function: cubic-bezier(0, .57, .44, 1.97);
+        }
+        
+        .move-enter-active .inner-1 {
+            transition-delay: .1s;
+        }
+        
+        .move-enter-active .inner-2 {
+            transition-delay: .5s;
+        }
+        
+        .move-enter-active .inner-3 {
+            transition-delay: .9s;
+        }
+        
+        .move-enter .inner,
+        .move-leave-active .inner {
+            transition-timing-function: ease-in-out;
+        }
+        
+        .move-enter .inner-1,
+        .move-leave-active .inner-1 {
+            transform: translate3d(0, 60px, 0);
+            transition-delay: .3s;
+        }
+        
+        .move-enter .inner-2,
+        .move-leave-active .inner-2 {
+            transform: translate3d(40px, 40px, 0);
+            transition-delay: .2s;
+        }
+        
+        .move-enter .inner-3,
+        .move-leave-active .inner-3 {
+            transform: translate3d(60px, 0, 0);
+            transition-delay: .1s;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <demo1-component>
+
+        </demo1-component>
+    </div>
+    <template id="demo1-temp">
+        <div>
+            <button class="btn" @click="showMenu">{{btnText}}</button>
+            <transition name="move">
+                <div class="menu" v-show="show">
+                    <div class="inner inner-1">1</div>
+                    <div class="inner inner-2">2</div>
+                    <div class="inner inner-3">3</div>
+                </div>
+            </transition>
+
+        </div>
+
+    </template>
+</body>
+<script src="../js/vue.js"></script>
+<script>
+    Vue.component("demo1-component", {
+        template: '#demo1-temp',
+        data:function() {
+            return {
+                show: false
+            }
+        },
+        computed: {
+            btnText: function () {
+                return this.show ? "关" : "开";
+            }
+        },
+        methods: {
+            showMenu: function () {
+                this.show = !this.show;
+            }
+        }
+    });
+    new Vue({
+        el: '#app',
+        data: {
+            btnShow: '开'
+        }
+    })
+
+</script>
+
+</html>
